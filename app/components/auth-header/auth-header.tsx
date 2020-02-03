@@ -33,12 +33,12 @@ export const AuthHeader = (props: AuthHeaderProps) => {
           onLeftPress ? onLeftPress() : NavigateService.goBack()
         }}
       >
-        <Icon name="star" width={32} height={32} fill="#3366FF" />
-
+        <Icon name="ios-arrow-back" size={width} fill={theme["color-basic-600"]} />
         <Text category="h6" style={styles.text}>
           {title}
         </Text>
       </TouchableOpacity>
+      <ChangeThemeIcon />
     </View>
   )
 }

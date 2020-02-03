@@ -1,47 +1,23 @@
-import { useStyleSheet, useTheme } from "@ui-kitten/components"
-import { Ionicons } from "@expo/vector-icons"
+import { useTheme } from "@ui-kitten/components"
 import { observer } from "mobx-react-lite"
-import React, { useContext, useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
-import { Button as KTButton } from "@ui-kitten/components"
-import { TouchableOpacity, ScrollView, StyleSheet as RNStyleSheet } from "react-native"
-import Animated, {
-  Transition,
-  Transitioning,
-  Value,
-  Clock,
-  block,
-  set,
-  useCode
-} from "react-native-reanimated"
+import { TouchableOpacity } from "react-native"
+import Animated, { set, Transition, Transitioning, useCode, Value } from "react-native-reanimated"
+import { bInterpolate } from "react-native-redash"
 import { NavigationScreenProp } from "react-navigation"
-import {
-  AppInput,
-  AuthHeader,
-  Button,
-  Screen,
-  SizedBox,
-  Text,
-  View,
-  Wallpaper
-} from "../../components"
-// import { useStores } from "../../models/root-store"
-import { images, metrics, spacing, ThemeContext, screenSize, sw } from "../../theme"
-import { runTiming, runTimingOb } from "../../utils/reanimated"
-import { timing, bInterpolate, delay } from "react-native-redash"
-import {
-  getOpacity,
-  getScale,
-  getScaleAndOpacity,
-  getTranslateX,
-  getCircle,
-  normalDelay,
-  getSize
-} from "../../utils"
 import { useMemoOne } from "use-memo-one"
+import { AppInput, AuthHeader, Button, Screen, SizedBox, Text, View } from "components"
+// import { useStores } from "../../models/root-store"
+import { images, sh, sw } from "theme"
+import { getOpacity, getScaleAndOpacity, getTranslateX, normalDelay, useLayout } from "utils"
+import { NavigateService } from "utils/navigate-service"
 import { themedStyles } from "./styles"
+import { EyeIcon, FBicon } from "./components/Icons"
+import { runTimingOb, runTimingWithEndActionOB } from "utils/reanimated"
+import { useStyleSheet } from "@ui-kitten/components/theme"
 
-const AnimButton = Animated.createAnimatedComponent(KTButton)
+const AnimButton = Animated.createAnimatedComponent(Button)
 
 export interface SignInScreenProps {
   navigation: NavigationScreenProp<any, any>
@@ -69,16 +45,19 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
   const [successLogin, setSuccessLogin] = useState<boolean>(false)
   const [triggerSpreadOut, setTriggerSpreadOut] = useState<boolean>(false)
 
+  const [btnCookLayout, layout] = useLayout()
+
   useEffect(() => {
     register("email")
     register("password")
   })
 
   /* ------------------------ methods ------------------------ */
-  const onSubmit = data => {
+  const onSubmit = (data: any) => {
     setSuccessLogin(true)
-    normalDelay(200).then(() => setTriggerSpreadOut(true))
+    console.tlog("data", data)
     refForm.current.animateNextTransition()
+    normalDelay(600).then(() => setTriggerSpreadOut(true))
   }
   /* ------------------------ anim ------------------------ */
 
@@ -135,33 +114,37 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
     useCode(() => set(value.anim, runTimingOb({ duration: value.duration })), [])
   })
 
+  const nextScren = () => {
+    NavigateService.navigate("welcomeScreen")
+  }
+
   useCode(() => {
     if (triggerSpreadOut) {
-      return set(animBtnCookOut, timing({}))
+      return set(animBtnCookOut, runTimingWithEndActionOB({ duration: 600, endAction: nextScren }))
     }
+    return []
   }, [triggerSpreadOut])
 
   /* ------------------------ render ------------------------ */
-  const renderIcon = style => <Ionicons name="" size={32} color="green" />
-
   const renderBtns = () => (
-    <View style={styles.btnView}>
-      <Animated.View style={getScaleAndOpacity(animBtnCook)}>
-        {successLogin ? (
-          <AnimButton style={[styles.btn]} size="small" status="success" />
-        ) : (
-          <AnimButton
-            full={false}
-            onPress={handleSubmit(onSubmit)}
-            style={[styles.btnCook, styles.btn]}
-            size="large"
-            status="success"
-          >
-            signInScreen.letsCook
-          </AnimButton>
-        )}
-      </Animated.View>
-
+    <View style={styles.btnView} onLayout={layout}>
+      {!triggerSpreadOut && (
+        <Animated.View style={getScaleAndOpacity(animBtnCook)}>
+          {successLogin ? (
+            <AnimButton style={styles.btn} size="small" status="success" />
+          ) : (
+            <AnimButton
+              full={false}
+              onPress={handleSubmit(onSubmit)}
+              style={[styles.btnCook, styles.btn]}
+              size="large"
+              status="success"
+            >
+              signInScreen.letsCook
+            </AnimButton>
+          )}
+        </Animated.View>
+      )}
       <Animated.View style={getScaleAndOpacity(animBtnFb)}>
         <Button icon={FBicon} style={styles.btn} />
       </Animated.View>
@@ -191,11 +174,15 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
           label="common.password"
           inputRef={refPw}
           placeholder={secureTextEntry ? "********" : "password"}
-          icon={renderIcon}
-          onIconPress={() => {
-            refForm.current.animateNextTransition()
-            setSecureTextEntry(p => !p)
-          }}
+          icon={style => (
+            <EyeIcon
+              {...{ style, secureTextEntry }}
+              onPress={() => {
+                refForm.current.animateNextTransition()
+                setSecureTextEntry(p => !p)
+              }}
+            />
+          )}
           labelStyle={styles.label}
           secureTextEntry={secureTextEntry}
           onChangeText={text => setValue("password", text)}
@@ -214,6 +201,18 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
         </TouchableOpacity>
       </Animated.View>
       <SizedBox h={4} />
+
+      <Animated.View
+        style={{
+          position: "absolute",
+          top: bInterpolate(animBtnCookOut, btnCookLayout ? btnCookLayout.y : 0, 0) || 0,
+          right: (btnCookLayout ? btnCookLayout.x : 0) || 0,
+          backgroundColor: theme["color-success-default"],
+          width: bInterpolate(animBtnCookOut, 0, 900),
+          height: bInterpolate(animBtnCookOut, 0, sh),
+          opacity: bInterpolate(animBtnCookOut, 1, 0)
+        }}
+      />
     </View>
   )
 
@@ -224,23 +223,12 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
         style={[styles.wallpaper, getOpacity(animWallpaper)]}
       />
 
-      <ScrollView>
-        <Transitioning.View transition={formTransition} ref={refForm}>
-          {renderForm()}
-          {renderBtns()}
-        </Transitioning.View>
-      </ScrollView>
-      {/* {successLogin && (
-        <Animated.View
-          style={{
-            ...RNStyleSheet.absoluteFillObject,
-            backgroundColor: theme["color-success-default"],
-            ...getOpacity(animBtnCookOut),
-          }}
-        />
-      )} */}
+      <AuthHeader title="welcomeScreen.title" />
+
+      <Transitioning.View transition={formTransition} ref={refForm}>
+        {renderForm()}
+        {renderBtns()}
+      </Transitioning.View>
     </Screen>
   )
 })
-
-const FBicon = style => <Ionicons name="md-checkmark-circle" size={32} color="green" />

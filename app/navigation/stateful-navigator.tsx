@@ -21,6 +21,5 @@ export const StatefulNavigator: React.FunctionComponent<{}> = observer(() => {
     {},
     () => currentNavigation
   )
-  NavigateService.setTopLevelNavigator(currentNavigation)
-  return <RootNavigator navigation={currentNavigation} />
+  return <RootNavigator ref={ref => NavigateService.setTopLevelNavigator(ref)} />
 })

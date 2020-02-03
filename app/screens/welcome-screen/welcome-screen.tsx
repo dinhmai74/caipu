@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { Image } from "react-native"
 import Animated, { Clock, set, useCode, Value } from "react-native-reanimated"
 import { bInterpolate } from "react-native-redash"
-import { SafeAreaView } from "react-native-safe-area-context"
+import { SafeAreaView, useSafeArea } from "react-native-safe-area-context"
 import { NavigationInjectedProps } from "react-navigation"
 import { useMemoOne } from "use-memo-one"
 import { Button, Screen, SizedBox, Text, View } from "../../components"
@@ -35,6 +35,7 @@ export const WelcomeScreen: React.FunctionComponent<WelcomeScreenProps> = props 
 
   const welcomeY: any = bInterpolate(welcomeAnim, 500, 1)
   const welcomeOpacity: any = bInterpolate(welcomeAnim, 0, 1)
+  const insets = useSafeArea()
 
   return (
     <View style={styles.full}>
@@ -61,21 +62,19 @@ export const WelcomeScreen: React.FunctionComponent<WelcomeScreenProps> = props 
         </Animated.View>
       </Screen>
 
-      <SafeAreaView>
-        <View style={styles.footer}>
-          <Animated.View style={{ opacity: bInterpolate(welcomeAnim, -3, 1) }}>
-            <Button
-              onPress={() =>
-                NavigateService.navigate("signInScreen", {
-                  transition: strings.transitionNone
-                })
-              }
-            >
-              welcomeScreen.getStarted
-            </Button>
-          </Animated.View>
-        </View>
-      </SafeAreaView>
+      <View style={[styles.footer, { paddingBottom: insets.top }]}>
+        <Animated.View style={{ opacity: bInterpolate(welcomeAnim, -3, 1) }}>
+          <Button
+            onPress={() =>
+              NavigateService.navigate("signInScreen", {
+                transition: strings.transitionNone
+              })
+            }
+          >
+            welcomeScreen.getStarted
+          </Button>
+        </Animated.View>
+      </View>
     </View>
   )
 }

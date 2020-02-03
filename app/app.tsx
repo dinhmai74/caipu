@@ -14,6 +14,8 @@ import "./i18n"
 import { RootStore, RootStoreProvider, setupRootStore } from "./models/root-store"
 import { BackButtonHandler, exitRoutes, StatefulNavigator } from "./navigation"
 import { ThemeContext, themeProvider } from "./theme"
+import { IoniconsPack } from "./theme/icons/ionicons"
+import { FeatherIconsPack } from "./theme/icons/feather-icon"
 
 // This puts screens in a native ViewController or Activity. If you want fully native
 // stack navigation, use `createNativeStackNavigator` in place of `createStackNavigator`:
@@ -61,7 +63,7 @@ export const App: React.FunctionComponent<{}> = () => {
   return (
     <React.Fragment>
       <SafeAreaProvider>
-        <IconRegistry icons={EvaIconsPack} />
+        <IconRegistry icons={[IoniconsPack, FeatherIconsPack]} />
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
           <ApplicationProvider mapping={mapping} theme={currentTheme}>
             <RootStoreProvider value={rootStore}>

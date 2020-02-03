@@ -38,5 +38,12 @@ export const themedStyles = StyleService.create({
   circle: {
     alignSelf: "flex-end",
     backgroundColor: "color-success-default"
+  },
+  icon: {},
+  input:{
+    backgroundColor: 'white',
+    height: 40,
+    padding: 10,
+    borderRadius: 4,
   }
 })

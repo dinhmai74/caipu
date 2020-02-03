@@ -5,10 +5,10 @@ import { transitionConfig } from "./transition-config"
 export const AuthNavigator = createStackNavigator(
   {
     signInScreen: { screen: SignInScreen },
-    welcome: { screen: WelcomeScreen }
+    welcomeScreen: { screen: WelcomeScreen }
   },
   {
-    initialRouteName: "welcome",
+    initialRouteName: "welcomeScreen",
     headerMode: "none",
     transitionConfig
   }

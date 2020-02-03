@@ -13,14 +13,14 @@ export const ChangeThemeIcon = (props: ChangeThemeIconProps) => {
   const { style, ...rest } = props
   const theme = useTheme()
   const themeContext = useContext(ThemeContext)
-  const iconThemeName = themeContext.theme === "dark" ? "moon-outline" : "sun-outline"
+  const iconThemeName = themeContext.theme === "dark" ? "ios-moon" : "ios-sunny"
 
   const width = metrics.icon.md
   const height = metrics.icon.md
 
   return (
     <TouchableOpacity style={style} onPress={() => themeContext.toggleTheme()}>
-      <Icon name={iconThemeName} {...{ width, height }} fill={theme["color-basic-600"]} />
+      <Icon name={iconThemeName} size={width} fill={theme["color-basic-600"]} />
     </TouchableOpacity>
   )
 }

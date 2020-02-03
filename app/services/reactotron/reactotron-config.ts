@@ -7,6 +7,7 @@ export interface ReactotronConfig {
   useAsyncStorage?: boolean
   /** Should we clear Reactotron when load? */
   clearOnLoad?: boolean
+  port?: number
   /** Root state logging. */
   state?: {
     /** log the initial data that we put into the state on startup? */
@@ -21,11 +22,11 @@ export interface ReactotronConfig {
  */
 export const DEFAULT_REACTOTRON_CONFIG: ReactotronConfig = {
   clearOnLoad: true,
-  // host: "192.168.1.6",
-  host: "localhost",
+  host: "192.168.1.7",
+  port: 19001,
   useAsyncStorage: true,
   state: {
     initial: true,
-    snapshots: false,
-  },
+    snapshots: false
+  }
 }

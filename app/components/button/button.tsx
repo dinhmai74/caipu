@@ -6,39 +6,41 @@ import { ButtonProps } from "./button.props"
 import { translate } from "../../i18n"
 import { ViewStyle } from "react-native"
 
-export function Button(props: ButtonProps) {
-  const {
-    preset = "primary",
-    tx,
-    txOptions,
-    text,
-    style: styleOverride,
-    textStyle: textStyleOverride,
-    children,
-    full,
-    ...rest
-  } = props
+export class Button extends React.Component<ButtonProps> {
+  static defaultProps = {
+    full: true
+  }
 
-  const notFullStyle: ViewStyle = !full && { alignSelf: "flex-start" }
-  const viewStyle = mergeAll(
-    flatten([viewPresets[preset] || viewPresets.primary, notFullStyle, styleOverride]),
-  )
-  const textStyle = mergeAll(
-    flatten([textPresets[preset] || textPresets.primary, textStyleOverride]),
-  )
+  render() {
+    const {
+      preset = "primary",
+      tx,
+      txOptions,
+      text,
+      style: styleOverride,
+      textStyle: textStyleOverride,
+      children,
+      full,
+      ...rest
+    } = this.props
 
-  let content
-  if (typeof children === "string") {
-    content = translate(children, txOptions)
-  } else content = children || text || (tx && translate(tx))
+    const notFullStyle: ViewStyle = !full && { alignSelf: "flex-start" }
+    const viewStyle = mergeAll(
+      flatten([viewPresets[preset] || viewPresets.primary, notFullStyle, styleOverride])
+    )
+    const textStyle = mergeAll(
+      flatten([textPresets[preset] || textPresets.primary, textStyleOverride])
+    )
 
-  return (
-    <KTButton style={viewStyle} textStyle={textStyle} {...rest}>
-      {content}
-    </KTButton>
-  )
-}
+    let content
+    if (typeof children === "string") {
+      content = translate(children, txOptions)
+    } else content = children || text || (tx && translate(tx))
 
-Button.defaultProps = {
-  full: true,
+    return (
+      <KTButton style={viewStyle} textStyle={textStyle} {...rest}>
+        {content}
+      </KTButton>
+    )
+  }
 }
