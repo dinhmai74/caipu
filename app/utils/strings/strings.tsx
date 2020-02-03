@@ -8,4 +8,3 @@ export const strings = {
   transitionNone: "transitionNone",
 }
 
-export default strings

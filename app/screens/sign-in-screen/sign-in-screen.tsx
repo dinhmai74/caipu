@@ -10,7 +10,7 @@ import { useMemoOne } from "use-memo-one"
 import { AppInput, AuthHeader, Button, Screen, SizedBox, Text, View } from "components"
 // import { useStores } from "../../models/root-store"
 import { images, sh, sw } from "theme"
-import { getOpacity, getScaleAndOpacity, getTranslateX, normalDelay, useLayout } from "utils"
+import { getOpacity, getScaleAndOpacity, getTranslateX, normalDelay, useLayout, strings } from "utils"
 import { NavigateService } from "utils/navigate-service"
 import { themedStyles } from "./styles"
 import { EyeIcon, FBicon } from "./components/Icons"
@@ -195,7 +195,9 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.btnForgot} onPress={() => NavigateService.navigate("signUpScreen")}>
+        <TouchableOpacity style={styles.btnForgot} onPress={() => NavigateService.navigate("signUpScreen", {
+          transition: strings.transitionFromBottom
+        })}>
           <Text themeColor="color-basic-600">auth.signUp</Text>
         </TouchableOpacity>
       </Animated.View>

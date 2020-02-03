@@ -36,9 +36,10 @@
     "loginWithFb": "Login with Facebook"
   },
   "auth": {
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "signIn": "Sign In"
   },
   "signUpScreen": {
-    "title": "Sign Up",
+    "title": "Sign Up"
   }
 }

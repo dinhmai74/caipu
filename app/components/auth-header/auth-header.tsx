@@ -3,10 +3,10 @@ import flatten from "ramda/es/flatten"
 import mergeAll from "ramda/es/mergeAll"
 import React from "react"
 import { TouchableOpacity, View, ViewStyle } from "react-native"
-import { Text } from "../text/text"
+import { SizedBox, Text } from "components"
 import { metrics, spacing } from "../../theme"
-import { NavigateService } from "../../utils/navigate-service"
-import { ChangeThemeIcon } from "../change-theme-icon/change-theme-icon"
+import { NavigateService } from "utils/navigate-service"
+import { ChangeThemeIcon } from "components"
 
 export interface AuthHeaderProps {
   style?: ViewStyle
@@ -20,7 +20,6 @@ export const AuthHeader = (props: AuthHeaderProps) => {
   const styles = useStyleSheet(themedStyles)
 
   const width = metrics.icon.md
-  const height = metrics.icon.md
 
   const style: any = mergeAll(flatten([PStyle, styles.container]))
   const theme = useTheme()
@@ -34,6 +33,7 @@ export const AuthHeader = (props: AuthHeaderProps) => {
         }}
       >
         <Icon name="ios-arrow-back" size={width} fill={theme["color-basic-600"]} />
+        <SizedBox w={2} />
         <Text category="h6" style={styles.text}>
           {title}
         </Text>
