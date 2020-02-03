@@ -37,5 +37,8 @@
   },
   "auth": {
     "signUp": "Sign Up"
+  },
+  "signUpScreen": {
+    "title": "Sign Up",
   }
 }

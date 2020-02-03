@@ -55,7 +55,6 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
   /* ------------------------ methods ------------------------ */
   const onSubmit = (data: any) => {
     setSuccessLogin(true)
-    console.tlog("data", data)
     refForm.current.animateNextTransition()
     normalDelay(600).then(() => setTriggerSpreadOut(true))
   }
@@ -196,7 +195,7 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.btnForgot}>
+        <TouchableOpacity style={styles.btnForgot} onPress={() => NavigateService.navigate("signUpScreen")}>
           <Text themeColor="color-basic-600">auth.signUp</Text>
         </TouchableOpacity>
       </Animated.View>

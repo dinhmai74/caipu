@@ -29,7 +29,7 @@ enableScreens()
 YellowBox.ignoreWarnings([
   "componentWillMount is deprecated",
   "componentWillReceiveProps is deprecated",
-  "equire cycle"
+  "Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.\n",
 ])
 
 /**

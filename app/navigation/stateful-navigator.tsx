@@ -10,7 +10,7 @@ let currentNavigation: NavigationScreenProp<NavigationState> | undefined
 
 export const StatefulNavigator: React.FunctionComponent<{}> = observer(() => {
   const {
-    navigationStore: { state, dispatch, actionSubscribers }
+    navigationStore: { state, dispatch, actionSubscribers, reset }
   } = useStores()
 
   currentNavigation = getNavigation(
@@ -21,5 +21,9 @@ export const StatefulNavigator: React.FunctionComponent<{}> = observer(() => {
     {},
     () => currentNavigation
   )
-  return <RootNavigator ref={ref => NavigateService.setTopLevelNavigator(ref)} />
+
+  // reset navigation if have a problem
+  // React.useEffect(() => { reset() })
+
+  return <RootNavigator ref={ref => NavigateService.setTopLevelNavigator(ref)} navigation={currentNavigation} />
 })

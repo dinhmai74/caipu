@@ -29,7 +29,7 @@ export const WelcomeScreen: React.FunctionComponent<WelcomeScreenProps> = props 
   const [showWelcome, setShowWelcome] = useState(false)
 
   useCode(() => {
-    if (showWelcome) return set(subtextAnim, runTiming(clock, 0.5, 1, 300))
+    if (showWelcome) return set(subtextAnim, runTiming(clock, 0.5, 1, 200))
     return set(welcomeAnim, runTimingWithEndAction(clock, 0, 1, () => setShowWelcome(true)))
   }, [showWelcome, welcomeAnim, subtextAnim])
 

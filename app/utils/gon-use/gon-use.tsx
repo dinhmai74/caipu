@@ -6,17 +6,8 @@ import Animated from "react-native-reanimated"
 interface Size {
   width: number
   height: number
-}
-
-export const useComponentSize = (): [Size, any] => {
-  const [size, setSize] = useState(null)
-
-  const onLayout = useCallback(event => {
-    const { width, height } = event.nativeEvent.layout
-    setSize({ width, height })
-  }, [])
-
-  return [size, onLayout]
+  x: number
+  y: number
 }
 
 export const useLayout = (): [Size, any] => {

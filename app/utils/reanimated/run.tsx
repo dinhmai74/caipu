@@ -104,7 +104,7 @@ export function runSpringDeep(
       startClock(clock)
     ]),
     spring(clock, state, config),
-    cond(state.finished, debug("stop clock", stopClock(clock))),
+    cond(state.finished, debug("stop clock in runSpring deep", stopClock(clock))),
     state.position
   ])
 }
@@ -174,7 +174,7 @@ export const runTiming = (clock, value, dest, duration = 1000): any => {
       ]
     ),
     timing(clock, state, config),
-    cond(state.finished, debug("stop clock", stopClock(clock))),
+    cond(state.finished, debug("stop clock run timing", stopClock(clock))),
     state.position
   ])
 }
@@ -207,7 +207,7 @@ export const runTimingOb = ({ clock = new Clock(), from = 0, to = 1, duration = 
       ]
     ),
     timing(clock, state, config),
-    cond(state.finished, debug("stop clock", stopClock(clock))),
+    cond(state.finished, debug("stop clock runTimingOb", stopClock(clock))),
     state.position
   ])
 }
