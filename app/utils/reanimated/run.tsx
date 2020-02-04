@@ -1,8 +1,8 @@
-import Animated, { Easing, call, Clock } from "react-native-reanimated"
-
-const {
+import Animated, {
+  Easing,
+  call,
+  Clock,
   timing,
-  debug,
   Value,
   clockRunning,
   spring,
@@ -14,7 +14,7 @@ const {
   proc,
   and,
   eq
-} = Animated
+} from "react-native-reanimated"
 
 const betterSpring = proc(
   (
@@ -104,7 +104,7 @@ export function runSpringDeep(
       startClock(clock)
     ]),
     spring(clock, state, config),
-    cond(state.finished, debug("stop clock in runSpring deep", stopClock(clock))),
+    cond(state.finished, stopClock(clock)),
     state.position
   ])
 }
@@ -174,7 +174,7 @@ export const runTiming = (clock, value, dest, duration = 1000): any => {
       ]
     ),
     timing(clock, state, config),
-    cond(state.finished, debug("stop clock run timing", stopClock(clock))),
+    cond(state.finished, stopClock(clock)),
     state.position
   ])
 }
@@ -207,7 +207,7 @@ export const runTimingOb = ({ clock = new Clock(), from = 0, to = 1, duration = 
       ]
     ),
     timing(clock, state, config),
-    cond(state.finished, debug("stop clock runTimingOb", stopClock(clock))),
+    cond(state.finished, stopClock(clock)),
     state.position
   ])
 }

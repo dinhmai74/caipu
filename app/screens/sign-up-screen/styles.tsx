@@ -27,9 +27,9 @@ export const styles = StyleSheet.create({
   btnView: {},
   btn: {
     alignSelf: "flex-end",
+    borderBottomLeftRadius: spacing[2],
     borderRadius: 0,
     borderTopLeftRadius: spacing[2],
-    borderBottomLeftRadius: spacing[2],
     marginVertical: spacing[2]
   },
   btnCook: {

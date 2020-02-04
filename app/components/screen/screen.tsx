@@ -17,11 +17,11 @@ function ScreenWithoutScrolling(props: ScreenProps) {
   const backgroundStyle = props.backgroundColor
     ? { backgroundColor: props.backgroundColor }
     : {
-      backgroundColor: theme["background-basic-color-1"],
+      backgroundColor: theme["background-basic-color-1"]
     }
   const Wrapper = props.unsafe ? View : View
-  const insets = useSafeArea();
-  const wrapperStyle= props.unsafe? null: { paddingTop : insets.top}
+  const insets = useSafeArea()
+  const wrapperStyle = props.unsafe ? null : { paddingTop: insets.top }
 
   return (
     <KeyboardAvoidingView
@@ -34,7 +34,9 @@ function ScreenWithoutScrolling(props: ScreenProps) {
           props.statusBar || themeContext.theme === "light" ? "dark-content" : "light-content"
         }
       />
-      <Wrapper style={[preset.outer, wrapperStyle,backgroundStyle]}>{props.children}</Wrapper>
+      <Wrapper style={[preset.outer, wrapperStyle, backgroundStyle]} removeClippedSubviews={false}>
+        {props.children}
+      </Wrapper>
     </KeyboardAvoidingView>
   )
 }
@@ -47,12 +49,12 @@ function ScreenWithScrolling(props: ScreenProps) {
   const backgroundStyle = props.backgroundColor
     ? { backgroundColor: props.backgroundColor }
     : {
-      backgroundColor: theme["background-basic-color-1"],
+      backgroundColor: theme["background-basic-color-1"]
     }
 
   const Wrapper = props.unsafe ? View : View
-  const insets = useSafeArea();
-  const wrapperStyle= props.unsafe? null: { paddingTop : insets.top}
+  const insets = useSafeArea()
+  const wrapperStyle = props.unsafe ? null : { paddingTop: insets.top }
 
   return (
     <KeyboardAvoidingView
@@ -65,7 +67,7 @@ function ScreenWithScrolling(props: ScreenProps) {
           props.statusBar || themeContext.theme === "light" ? "dark-content" : "light-content"
         }
       />
-      <Wrapper style={[preset.outer, wrapperStyle,backgroundStyle]}>
+      <Wrapper style={[preset.outer, wrapperStyle, backgroundStyle]}>
         <ScrollView
           style={[preset.outer, backgroundStyle]}
           contentContainerStyle={[preset.inner, style]}

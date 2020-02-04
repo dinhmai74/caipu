@@ -1,4 +1,4 @@
-import { useTheme } from "@ui-kitten/components"
+import { Spinner, useTheme } from "@ui-kitten/components"
 import { observer } from "mobx-react-lite"
 import React, { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -19,7 +19,7 @@ import {
   strings
 } from "utils"
 import { NavigateService } from "utils/navigate-service"
-import { styles, themedStyles } from "./styles"
+import { styles } from "./styles"
 import { runTimingOb, runTimingWithEndActionOB } from "utils/reanimated"
 import { useStyleSheet } from "@ui-kitten/components/theme"
 import { FBicon, EyeIcon } from "screens/sign-in-screen/components/Icons"
@@ -135,19 +135,21 @@ export const SignUpScreen: React.FunctionComponent<SignInScreenProps> = observer
     <View style={styles.btnView} onLayout={layout}>
       {!triggerSpreadOut && (
         <Animated.View style={getScaleAndOpacity(animBtnCook)}>
-          {successLogin ? (
-            <AnimButton style={styles.btn} size="small" status="success" />
-          ) : (
-            <AnimButton
-              full={false}
-              onPress={handleSubmit(onSubmit)}
-              style={[styles.btnCook, styles.btn]}
-              size="large"
-              status="success"
-            >
-              signInScreen.letsCook
-            </AnimButton>
-          )}
+          <Animated.View style={getScaleAndOpacity(animBtnCook)}>
+            {successLogin ? (
+              <AnimButton style={styles.btn} size="small" status="success" />
+            ) : (
+              <AnimButton
+                full={false}
+                onPress={handleSubmit(onSubmit)}
+                style={[styles.btnCook, styles.btn]}
+                size="large"
+                status="success"
+              >
+                signInScreen.letsCook
+              </AnimButton>
+            )}
+          </Animated.View>
         </Animated.View>
       )}
       <Animated.View style={getScaleAndOpacity(animBtnFb)}>

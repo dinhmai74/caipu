@@ -20,7 +20,7 @@ import { FeatherIconsPack } from "./theme/icons/feather-icon"
 // This puts screens in a native ViewController or Activity. If you want fully native
 // stack navigation, use `createNativeStackNavigator` in place of `createStackNavigator`:
 // https://github.com/kmagiera/react-native-screens#using-native-stack-navigator
-enableScreens()
+// enableScreens()
 
 /**
  * Ignore some yellowbox warnings. Some of these are for deprecated functions
@@ -29,7 +29,7 @@ enableScreens()
 YellowBox.ignoreWarnings([
   "componentWillMount is deprecated",
   "componentWillReceiveProps is deprecated",
-  "Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.\n",
+  "Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle"
 ])
 
 /**

@@ -1,15 +1,14 @@
-import createNativeStackNavigator from "react-native-screens/createNativeStackNavigator"
 import { HomeScreen, } from "../screens"
 import { transitionConfig } from "./transition-config"
+import { createStackNavigator } from "react-navigation-stack"
 
-export const PrimaryNavigator = createNativeStackNavigator(
+export const PrimaryNavigator = createStackNavigator(
   {
     homeScreen: { screen: HomeScreen },
   },
   {
     initialRouteName: "homeScreen",
     headerMode: "none",
-    transitionConfig 
   },
 )
 

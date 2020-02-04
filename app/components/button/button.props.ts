@@ -1,4 +1,4 @@
-import { ViewStyle, TextStyle, TouchableOpacityProps } from "react-native"
+import { ViewStyle, TextStyle } from "react-native"
 import { ButtonPresetNames } from "./button.presets"
 import { ButtonProps as BaseButtonProps } from "@ui-kitten/components"
 
@@ -30,4 +30,7 @@ export interface ButtonProps extends BaseButtonProps {
   preset?: ButtonPresetNames
   children?: any
   full?: boolean
+  loading?: boolean
+  loadingSize?: number | "small" | "large"
+  loadingColor?: string
 }

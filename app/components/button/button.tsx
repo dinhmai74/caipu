@@ -1,14 +1,18 @@
-import { Button as KTButton } from "@ui-kitten/components"
+import { Button as KTButton, Spinner } from "@ui-kitten/components"
 import { flatten, mergeAll } from "ramda"
 import * as React from "react"
 import { textPresets, viewPresets } from "./button.presets"
 import { ButtonProps } from "./button.props"
 import { translate } from "../../i18n"
-import { ViewStyle } from "react-native"
+import { ViewStyle, ActivityIndicator } from "react-native"
 
 export class Button extends React.Component<ButtonProps> {
-  static defaultProps = {
-    full: true
+  static defaultProps: any
+
+  renderLoading() {
+    const { loadingColor, loadingSize } = this.props
+    console.log("loadingColor", loadingColor)
+    return <ActivityIndicator size={loadingSize} color={loadingColor || "#fff"} />
   }
 
   render() {
@@ -21,6 +25,7 @@ export class Button extends React.Component<ButtonProps> {
       textStyle: textStyleOverride,
       children,
       full,
+      loading,
       ...rest
     } = this.props
 
@@ -32,15 +37,25 @@ export class Button extends React.Component<ButtonProps> {
       flatten([textPresets[preset] || textPresets.primary, textStyleOverride])
     )
 
-    let content
-    if (typeof children === "string") {
-      content = translate(children, txOptions)
-    } else content = children || text || (tx && translate(tx))
+    let content: any
+    const customProps = {}
+
+    if (loading) {
+      Object.assign(customProps, {
+        icon: () => this.renderLoading()
+      })
+    } else {
+      if (typeof children === "string") {
+        content = translate(children, txOptions)
+      } else content = children || text || (tx && translate(tx))
+    }
 
     return (
-      <KTButton style={viewStyle} textStyle={textStyle} {...rest}>
+      <KTButton style={viewStyle} textStyle={textStyle} {...rest} {...customProps}>
         {content}
       </KTButton>
     )
   }
 }
+
+Button.defaultProps = {}

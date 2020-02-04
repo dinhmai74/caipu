@@ -64,13 +64,7 @@ export const WelcomeScreen: React.FunctionComponent<WelcomeScreenProps> = props 
 
       <View style={[styles.footer, { paddingBottom: insets.top }]}>
         <Animated.View style={{ opacity: bInterpolate(welcomeAnim, -3, 1) }}>
-          <Button
-            onPress={() =>
-              NavigateService.navigate("signInScreen", {
-                transition: strings.transitionNone
-              })
-            }
-          >
+          <Button onPress={() => NavigateService.navigate("signInScreen")} full>
             welcomeScreen.getStarted
           </Button>
         </Animated.View>

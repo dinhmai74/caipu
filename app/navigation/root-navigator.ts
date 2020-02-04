@@ -4,16 +4,14 @@ import { AuthNavigator } from "./auth-navigator"
 import { PrimaryNavigator } from "./primary-navigator"
 import { createAppContainer } from "react-navigation"
 
-export const RootNavigator = createAppContainer(
-  createStackNavigator(
-    {
-      primaryStack: { screen: PrimaryNavigator },
-      authStack: { screen: AuthNavigator }
-    },
-    {
-      headerMode: "none",
-      initialRouteName: "authStack",
-      navigationOptions: { gesturesEnabled: false }
-    }
-  )
+export const RootNavigator = createStackNavigator(
+  {
+    primaryStack: { screen: PrimaryNavigator },
+    authStack: { screen: AuthNavigator }
+  },
+  {
+    headerMode: "none",
+    initialRouteName: "authStack",
+    navigationOptions: { gesturesEnabled: false }
+  }
 )

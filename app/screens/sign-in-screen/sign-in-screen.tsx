@@ -1,23 +1,30 @@
-import { useTheme } from "@ui-kitten/components"
+import { useTheme, Spinner } from "@ui-kitten/components"
 import { observer } from "mobx-react-lite"
 import React, { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { TouchableOpacity } from "react-native"
 import Animated, { set, Transition, Transitioning, useCode, Value } from "react-native-reanimated"
-import { bInterpolate } from "react-native-redash"
+import { bInterpolate, delay } from "react-native-redash"
 import { NavigationScreenProp } from "react-navigation"
 import { useMemoOne } from "use-memo-one"
 import { AppInput, AuthHeader, Button, Screen, SizedBox, Text, View } from "components"
 // import { useStores } from "../../models/root-store"
 import { images, sh, sw } from "theme"
-import { getOpacity, getScaleAndOpacity, getTranslateX, normalDelay, useLayout, strings } from "utils"
+import {
+  getOpacity,
+  getScaleAndOpacity,
+  getTranslateX,
+  normalDelay,
+  useLayout,
+  strings
+} from "utils"
 import { NavigateService } from "utils/navigate-service"
-import { themedStyles } from "./styles"
+import { styles } from "./styles"
 import { EyeIcon, FBicon } from "./components/Icons"
 import { runTimingOb, runTimingWithEndActionOB } from "utils/reanimated"
-import { useStyleSheet } from "@ui-kitten/components/theme"
+import { useSpring, animated } from "react-spring/native"
 
-const AnimButton = Animated.createAnimatedComponent(Button)
+const AnimButton = animated(Button)
 
 export interface SignInScreenProps {
   navigation: NavigationScreenProp<any, any>
@@ -33,7 +40,6 @@ const formTransition = (
 
 export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer(() => {
   // const { someStore } = useStores()
-  const styles = useStyleSheet(themedStyles)
   const theme = useTheme()
   /* ------------------------ ref ------------------------ */
   const refForm = useRef(null)
@@ -52,11 +58,23 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
     register("password")
   })
 
+  const [springs, setSprings] = useSpring(() => ({ loadingBtnSize: 300 }))
+
+  const btnLoadingStyle = {
+    height: springs.loadingBtnSize.to(x => {
+      if (x > 50) return 50
+      return x
+    }),
+    width: springs.loadingBtnSize
+  }
+
   /* ------------------------ methods ------------------------ */
   const onSubmit = (data: any) => {
     setSuccessLogin(true)
-    refForm.current.animateNextTransition()
-    normalDelay(600).then(() => setTriggerSpreadOut(true))
+    setSprings({
+      loadingBtnSize: 50
+    })
+    normalDelay(300).then(() => setTriggerSpreadOut(true))
   }
   /* ------------------------ anim ------------------------ */
 
@@ -127,23 +145,20 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
   /* ------------------------ render ------------------------ */
   const renderBtns = () => (
     <View style={styles.btnView} onLayout={layout}>
-      {!triggerSpreadOut && (
-        <Animated.View style={getScaleAndOpacity(animBtnCook)}>
-          {successLogin ? (
-            <AnimButton style={styles.btn} size="small" status="success" />
-          ) : (
-            <AnimButton
-              full={false}
-              onPress={handleSubmit(onSubmit)}
-              style={[styles.btnCook, styles.btn]}
-              size="large"
-              status="success"
-            >
-              signInScreen.letsCook
-            </AnimButton>
-          )}
-        </Animated.View>
-      )}
+      <Animated.View style={getScaleAndOpacity(animBtnCook)}>
+        {!triggerSpreadOut && (
+          <AnimButton
+            full={false}
+            onPress={handleSubmit(onSubmit)}
+            style={[styles.btnCook, styles.btn, btnLoadingStyle]}
+            size="large"
+            status="success"
+            loading={successLogin}
+          >
+            signInScreen.letsCook
+          </AnimButton>
+        )}
+      </Animated.View>
       <Animated.View style={getScaleAndOpacity(animBtnFb)}>
         <Button icon={FBicon} style={styles.btn} />
       </Animated.View>
@@ -195,9 +210,14 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.btnForgot} onPress={() => NavigateService.navigate("signUpScreen", {
-          transition: strings.transitionFromBottom
-        })}>
+        <TouchableOpacity
+          style={styles.btnForgot}
+          onPress={() =>
+            NavigateService.navigate("signUpScreen", {
+              transition: strings.transitionFromBottom
+            })
+          }
+        >
           <Text themeColor="color-basic-600">auth.signUp</Text>
         </TouchableOpacity>
       </Animated.View>

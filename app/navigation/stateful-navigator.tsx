@@ -23,7 +23,11 @@ export const StatefulNavigator: React.FunctionComponent<{}> = observer(() => {
   )
 
   // reset navigation if have a problem
-  // React.useEffect(() => { reset() })
+  //React.useEffect(() => {
+  //reset()
+  //})
 
-  return <RootNavigator ref={ref => NavigateService.setTopLevelNavigator(ref)} navigation={currentNavigation} />
+  NavigateService.setTopLevelNavigator(currentNavigation)
+
+  return <RootNavigator navigation={currentNavigation} />
 })
