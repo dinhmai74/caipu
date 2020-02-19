@@ -120,7 +120,7 @@ export const SignUpScreen: React.FunctionComponent<SignInScreenProps> = observer
   })
 
   const nextScren = () => {
-    NavigateService.navigate("welcomeScreen")
+    NavigateService.navigate("welcomeScreen", { transition: strings.transitionFadeIn })
   }
 
   useCode(() => {

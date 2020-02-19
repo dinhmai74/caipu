@@ -85,7 +85,8 @@ export const getScreenInterpolator = sceneProps => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { position, layout, scene, index, scenes } = sceneProps
   const opacity = getOpacity(scene, layout, position)
-  let transform: any = slideInFromRight(scene, layout, position)
+  //let transform: any = slideInFromRight(scene, layout, position)
+  let transform: any
 
   if (scene.route.params) {
     const { transition } = scene.route.params

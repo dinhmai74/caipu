@@ -6,5 +6,10 @@ export const strings = {
   transitionFromBottom: "transitionFromBottom",
   transitionScaleWithOpacity: "transitionScaleWithOpacity",
   transitionNone: "transitionNone",
+  transitionFadeIn: "transitionFadeIn",
+  transitionFadeOut: "transitionFadeOut",
+  transitionZoomIn: "transitionZoomIn",
+  transitionZoomOut: "transitionZoomOut",
+  transitionFlipX: "transitionFlipX",
+  transitionFlipY: "transitionFlipY"
 }
-
