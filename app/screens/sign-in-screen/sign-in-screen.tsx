@@ -50,6 +50,7 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true)
   const [successLogin, setSuccessLogin] = useState<boolean>(false)
   const [triggerSpreadOut, setTriggerSpreadOut] = useState<boolean>(false)
+  const [isSignIn, setIsSignIn] = useState(true)
 
   const [btnCookLayout, layout] = useLayout()
 
@@ -167,15 +168,15 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
 
   const renderForm = () => (
     <View style={styles.container}>
-      <Text category="h1">signInScreen.title</Text>
-      <SizedBox h={7} />
+      <Text category="h1">{isSignIn ? "signInScreen.title" : "signUpScreen.title"}</Text>
+      <SizedBox h={5} />
 
       <Animated.View style={getTranslateX(animEmail, sw, 0)}>
         <AppInput
-          label="common.email"
+          label="auth.email"
           keyboardType="email-address"
-          placeholder="common.email"
-          onSubmitEditing={() => refPw.current.focus()}
+          placeholder="auth.email"
+          // onSubmitEditing={() => refPw.current.focus()}
           labelStyle={styles.label}
           onChangeText={text => setValue("email", text)}
         />
@@ -183,9 +184,21 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
 
       <SizedBox h={4} />
 
+      {!isSignIn && (
+        <>
+          <AppInput
+            label="auth.name"
+            placeholder="auth.name"
+            labelStyle={styles.label}
+            onChangeText={text => setValue("name", text)}
+          />
+          <SizedBox h={4} />
+        </>
+      )}
+
       <Animated.View style={getTranslateX(animPassword, sw, 0)}>
         <AppInput
-          label="common.password"
+          label="auth.password"
           inputRef={refPw}
           placeholder={secureTextEntry ? "********" : "password"}
           icon={style => (
@@ -212,13 +225,12 @@ export const SignInScreen: React.FunctionComponent<SignInScreenProps> = observer
 
         <TouchableOpacity
           style={styles.btnForgot}
-          onPress={() =>
-            NavigateService.navigate("signUpScreen", {
-              transition: strings.transitionFromBottom
-            })
-          }
+          onPress={() => {
+            refForm.current.animateNextTransition()
+            setIsSignIn(p => !p)
+          }}
         >
-          <Text themeColor="color-basic-600">auth.signUp</Text>
+          <Text themeColor="color-basic-600">{isSignIn ? "auth.signUp" : "auth.signIn"}</Text>
         </TouchableOpacity>
       </Animated.View>
       <SizedBox h={4} />

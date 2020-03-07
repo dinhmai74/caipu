@@ -10,12 +10,12 @@ export interface HomeScreenProps {
   navigation: NavigationScreenProp<any, any>
 }
 
-export const HomeScreen: React.FunctionComponent<HomeScreenProps> = observer((props) => {
+export const HomeScreen: React.FunctionComponent<HomeScreenProps> = observer(props => {
   // const { someStore } = useStores()
   return (
     <Screen preset="scroll">
       <Header headerTx="homeScreen.header" leftIcon="back" />
-      <View style={styles.container} >
+      <View style={styles.container}>
         <Text>123</Text>
       </View>
     </Screen>

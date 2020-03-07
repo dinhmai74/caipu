@@ -32,6 +32,8 @@ YellowBox.ignoreWarnings([
   "Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle"
 ])
 
+enableScreens()
+
 /**
  * Are we allowed to exit the app?  This is called when the back button
  * is pressed on android.

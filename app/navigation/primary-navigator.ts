@@ -1,15 +1,14 @@
-import { HomeScreen, } from "../screens"
-import { transitionConfig } from "./transition-config"
+import { HomeScreen } from "../screens"
 import { createStackNavigator } from "react-navigation-stack"
 
 export const PrimaryNavigator = createStackNavigator(
   {
-    homeScreen: { screen: HomeScreen },
+    homeScreen: { screen: HomeScreen }
   },
   {
     initialRouteName: "homeScreen",
-    headerMode: "none",
-  },
+    headerMode: "none"
+  }
 )
 
 /**
@@ -19,4 +18,4 @@ export const PrimaryNavigator = createStackNavigator(
  * Anything not on this list will be a standard `back` action in
  * react-navigation.
  */
-export const exitRoutes: string[] = ["homeScreen",]
+export const exitRoutes: string[] = ["homeScreen"]

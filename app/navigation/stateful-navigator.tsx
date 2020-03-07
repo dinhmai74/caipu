@@ -10,7 +10,7 @@ let currentNavigation: NavigationScreenProp<NavigationState> | undefined
 
 export const StatefulNavigator: React.FunctionComponent<{}> = observer(() => {
   const {
-    navigationStore: { state, dispatch, actionSubscribers, reset }
+    navigationStore: { state, dispatch, actionSubscribers }
   } = useStores()
 
   currentNavigation = getNavigation(

@@ -2,9 +2,7 @@
   "common": {
     "ok": "OK!",
     "cancel": "Cancel",
-    "back": "Back",
-    "email": "Email",
-    "password": "Password"
+    "back": "Back"
   },
   "errors": {
     "invalidEmail": "Invalid email address."
@@ -37,7 +35,10 @@
   },
   "auth": {
     "signUp": "Sign Up",
-    "signIn": "Sign In"
+    "signIn": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name"
   },
   "signUpScreen": {
     "title": "Sign Up"
