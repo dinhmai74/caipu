@@ -56,6 +56,7 @@ export const App: React.FunctionComponent<{}> = () => {
   const toggleTheme = () => {
     const nextTheme = theme === "light" ? "dark" : "light"
     setTheme(nextTheme)
+    rootStore.themeStore?.toggle()
   }
   if (!rootStore) {
     return null

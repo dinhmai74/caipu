@@ -5,17 +5,17 @@ import { darkColor } from "./dark"
 export const color = {
   palette,
   transparent: "rgba(0, 0, 0, 0)",
+  ...lightColor
 }
 
 export const themes = {
   light: {
-    ...lightColor,
-    ...color,
+    ...color
   },
   dark: {
-    ...darkColor,
     ...color,
-  },
+    ...darkColor
+  }
 }
 
 export type ColorType = typeof color

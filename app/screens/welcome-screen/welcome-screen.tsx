@@ -6,7 +6,7 @@ import { bInterpolate } from "react-native-redash"
 import { SafeAreaView, useSafeArea } from "react-native-safe-area-context"
 import { NavigationInjectedProps } from "react-navigation"
 import { useMemoOne } from "use-memo-one"
-import { Button, Screen, SizedBox, Text, View } from "../../components"
+import { Button, Screen, SizedBox, Text, View, ChangeThemeIcon } from "../../components"
 import { images, metrics, spacing } from "../../theme"
 import { strings } from "../../utils"
 import { NavigateService } from "../../utils/navigate-service"
@@ -64,6 +64,7 @@ export const WelcomeScreen: React.FunctionComponent<WelcomeScreenProps> = props 
 
       <View style={[styles.footer, { paddingBottom: insets.top }]}>
         <Animated.View style={{ opacity: bInterpolate(welcomeAnim, -3, 1) }}>
+          <ChangeThemeIcon />
           <Button onPress={() => NavigateService.navigate("signInScreen")} full>
             welcomeScreen.getStarted
           </Button>
@@ -75,7 +76,6 @@ export const WelcomeScreen: React.FunctionComponent<WelcomeScreenProps> = props 
 
 const themedStyles = StyleService.create({
   full: {
-    backgroundColor: "background-basic-color-1",
     flex: 1
   },
   container: {

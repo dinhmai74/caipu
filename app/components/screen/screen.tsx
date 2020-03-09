@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-navigation"
 import { ScreenProps } from "./screen.props"
 import { isNonScrolling, offsets, presets } from "./screen.presets"
 import { useTheme } from "@ui-kitten/components"
-import { ThemeContext } from "../../theme"
+import { ThemeContext, useThemes } from "../../theme"
 import { useSafeArea } from "react-native-safe-area-context"
 
 const isIos = Platform.OS === "ios"
@@ -17,8 +17,8 @@ function ScreenWithoutScrolling(props: ScreenProps) {
   const backgroundStyle = props.backgroundColor
     ? { backgroundColor: props.backgroundColor }
     : {
-      backgroundColor: theme["background-basic-color-1"]
-    }
+        backgroundColor: theme["background-basic-color-1"]
+      }
   const Wrapper = props.unsafe ? View : View
   const insets = useSafeArea()
   const wrapperStyle = props.unsafe ? null : { paddingTop: insets.top }
@@ -44,13 +44,12 @@ function ScreenWithoutScrolling(props: ScreenProps) {
 function ScreenWithScrolling(props: ScreenProps) {
   const preset = presets["scroll"]
   const style = props.style || {}
-  const theme = useTheme()
+  const { color } = useThemes()
+  console.log(`color`, color["background-basic-color-1"])
   const themeContext = React.useContext(ThemeContext)
-  const backgroundStyle = props.backgroundColor
-    ? { backgroundColor: props.backgroundColor }
-    : {
-      backgroundColor: theme["background-basic-color-1"]
-    }
+  const backgroundStyle = {
+    backgroundColor: color["background-basic-color-1"]
+  }
 
   const Wrapper = props.unsafe ? View : View
   const insets = useSafeArea()
